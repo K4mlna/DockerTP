@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  ghost:
+    image: ghost:latest
+    ports:
+      - "2368:2368"
+    volumes:
+      - ghost-content:/var/lib/ghost/content
+    environment:
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: ghost
+      database__connection__password: pass
+      database__connection__database: ghost
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: ghost
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: pass
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  ghost-content:
+  mysql-data:
+
+
